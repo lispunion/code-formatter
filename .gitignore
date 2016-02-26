@@ -1,3 +1,5 @@
+backup/
+
 # Object files
 *.o
 *.ko
