@@ -87,7 +87,7 @@
  ; Space at start of comment
  (set! x
   (map-rec y x
-   (if (and (head? comment-symbol y)
+   (if (and (car? comment-symbol y)
             (length? 2 (cadr y))
             (char-alphabetic? (string-ref (cadr y) 1)))
     (list comment-symbol
@@ -97,7 +97,7 @@
  ; Upper case at start of comment
  (set! x
   (map-rec y x
-   (if (and (head? comment-symbol y)
+   (if (and (car? comment-symbol y)
             (length? 3 (cadr y))
             (string-prefix? "; " (cadr y))
             (char-lower-case? (string-ref (cadr y) 2)))
@@ -110,7 +110,7 @@
  ; Sort cases
  (set! x
        (map-rec y x
-        (if (and (head? 'case y)
+        (if (and (car? 'case y)
                  (length? 2 y))
          (cons* (car y) (cadr y) (sort (cddr y) value<))
          y)))
@@ -129,8 +129,8 @@
  (set! x
        (map-rec y x
         (if (list? y)
-         (concatenate (for zs (frag (curry head? (quote define-syntax)) y)
-                       (if (head? 'define-syntax (car zs))
+         (concatenate (for zs (frag (curry car? (quote define-syntax)) y)
+                       (if (car? 'define-syntax (car zs))
                         (sort zs value<)
                         zs)))
          y)))
@@ -138,9 +138,9 @@
  ; Sort memq
  (set! x
        (map-rec y x
-        (if (and (head? 'memq y)
+        (if (and (car? 'memq y)
                  (length? 3 y)
-                 (head? 'quote (caddr y)))
+                 (car? 'quote (caddr y)))
          (list (car y) (cadr y) (list 'quote (sort (cadr (caddr y)) value<)))
          y)))
 
@@ -148,9 +148,9 @@
  (set! x
        (map-rec y x
         (transform zs y
-         (values (if (and (head? 'import (car zs))
+         (values (if (and (car? 'import (car zs))
                           (pair? (cdr zs))
-                          (not (head? 'import (cadr zs))))
+                          (not (car? 'import (cadr zs))))
                   (list (car zs) blank-symbol)
                   (list (car zs)))
                  (cdr zs)))))
@@ -159,9 +159,9 @@
  (set! x
        (map-rec y x
         (transform zs y
-         (values (if (and (head? 'use (car zs))
+         (values (if (and (car? 'use (car zs))
                           (pair? (cdr zs))
-                          (not (head? 'use (cadr zs))))
+                          (not (car? 'use (cadr zs))))
                   (list (car zs) blank-symbol)
                   (list (car zs)))
                  (cdr zs)))))
@@ -170,9 +170,9 @@
  (set! x
        (map-rec y x
         (transform zs y
-         (values (if (and (head? 'include (car zs))
+         (values (if (and (car? 'include (car zs))
                           (pair? (cdr zs))
-                          (not (head? 'include (cadr zs))))
+                          (not (car? 'include (cadr zs))))
                   (list (car zs) blank-symbol)
                   (list (car zs)))
                  (cdr zs)))))
@@ -181,9 +181,9 @@
  (set! x
        (map-rec y x
         (transform zs y
-         (values (if (and (not (head? comment-symbol (car zs)))
+         (values (if (and (not (car? comment-symbol (car zs)))
                           (pair? (cdr zs))
-                          (head? comment-symbol (cadr zs)))
+                          (car? comment-symbol (cadr zs)))
                   (list (car zs) blank-symbol)
                   (list (car zs)))
                  (cdr zs)))))
@@ -192,7 +192,7 @@
  (set! x
        (map-rec y x
         (transform zs y
-         (values (if (head? 'define-syntax (car zs))
+         (values (if (car? 'define-syntax (car zs))
                   (list (car zs) blank-symbol)
                   (list (car zs)))
                  (cdr zs)))))
@@ -211,7 +211,7 @@
        (map-rec y x
         (transform zs y
          (values (list (car zs))
-                 (if (head? blank-symbol zs)
+                 (if (car? blank-symbol zs)
                   (drop-while (curry eq? blank-symbol) zs)
                   (cdr zs))))))
 
@@ -219,7 +219,7 @@
  (set! x
        (map-rec y x
         (transform zs y
-         (values (if (and (head? blank-symbol zs)
+         (values (if (and (car? blank-symbol zs)
                           (null? (cdr zs)))
                   '()
                   (list (car zs)))
@@ -245,7 +245,7 @@
          #f))))
 
  (define (args xs col)
-  (if (head? blank-symbol xs)
+  (if (car? blank-symbol xs)
    (set! xs (cdr xs)))
   (for x xs
    (newline)
@@ -255,7 +255,7 @@
   (display ")"))
 
  (define (bindings xs col)
-  (if (head? blank-symbol xs)
+  (if (car? blank-symbol xs)
    (set! xs (cdr xs)))
   (for* x xs xs
    (display "(")
@@ -275,7 +275,7 @@
     (write x))
    ((null? x)
     (write x))
-   ((head? comment-symbol x)
+   ((car? comment-symbol x)
     (display (cadr x)))
    ((abbrev-prefix x)
     (inline x))
@@ -397,7 +397,7 @@
    (newline)
    (cond
     ((eq? blank-symbol clause))
-    ((head? comment-symbol clause)
+    ((car? comment-symbol clause)
      (indent col)
      (display (cadr clause)))
     (else

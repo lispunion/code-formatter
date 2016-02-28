@@ -142,12 +142,16 @@
        ...)
       (append xs (loop ys))))))))
 
+(define (car? x y)
+ (and (pair? y)
+      (eqv? x (car y))))
+
 (define (curry f . xs)
  (lambda ys
   (apply f (append xs ys))))
 
 (define (defun? x)
- (and (head? 'define x)
+ (and (car? 'define x)
       (length? 2 x)
       (pair? (cadr x))))
 
@@ -163,10 +167,6 @@
    (receive (a b)
     (break p xs)
     (cons a (frag p b))))))
-
-(define (head? x y)
- (and (pair? y)
-      (eqv? x (car y))))
 
 (define (improper-list? x)
  (cond
