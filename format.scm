@@ -129,7 +129,7 @@
  (set! x
        (map-rec y x
         (if (list? y)
-         (concatenate (for zs (frag (curry car? (quote define-syntax)) y)
+         (concatenate (for zs (frag (curry car? 'define-syntax) y)
                        (if (car? 'define-syntax (car zs))
                         (sort zs value<)
                         zs)))
@@ -322,7 +322,7 @@
     (display " ")
     (write (cadr x))
     (display " ")
-    (write (caddr x))
+    (inline (caddr x))
     (args (cdddr x) (add1 col)))
 
    ; 3 special args
