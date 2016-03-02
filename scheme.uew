@@ -1,8 +1,7 @@
-/L20"Scheme" Line Comment Num = 1; File Extensions = SCM SS
-/Delimiters = '`@~%^&|{}[]()" ,	.;
+/L20"Scheme" Line Comment Num = 1; String Chars = " Escape Char = \ File Extensions = SCM SS
+/Delimiters = '`@~%^&|\{}[]()" ,	.;
 /Open Brace Strings =  "{" "(" "[" "<"
 /Close Brace Strings = "}" ")" "]" ">"
-/String Chars = "
 /C1
 *
 +
