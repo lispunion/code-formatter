@@ -307,7 +307,7 @@
     (write (cadr x))
     (args (cddr x) (add1 col)))
    ((and (length? 2 x)
-         (memq (car x) '(do-while if unless when)))
+         (memq (car x) '(do-until do-while if unless when)))
     (display "(")
     (write (car x))
     (display " ")
