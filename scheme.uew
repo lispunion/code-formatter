@@ -946,8 +946,17 @@ zip
 #!key
 #!optional
 #!rest
+#\alarm
+#\backspace
+#\delete
+#\escape
 #\newline
+#\null
+#\page
+#\return
 #\space
+#\tab
+#\vtab
 #f
 #t
 /C5
