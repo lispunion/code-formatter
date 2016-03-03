@@ -1,5 +1,5 @@
 /L20"Scheme" Line Comment Num = 1; String Chars = " Escape Char = \ File Extensions = SCM SS
-/Delimiters = '`@~%^&|\{}[]()" ,	.;
+/Delimiters = '`@~%^&|{}[]()" ,	.;
 /Open Brace Strings =  "{" "(" "[" "<"
 /Close Brace Strings = "}" ")" "]" ">"
 /C1
@@ -946,6 +946,8 @@ zip
 #!key
 #!optional
 #!rest
+#\newline
+#\space
 #f
 #t
 /C5
