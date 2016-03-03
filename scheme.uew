@@ -942,6 +942,10 @@ zero?
 zip
 /C2
 /C3
+#!eof
+#!key
+#!optional
+#!rest
 #f
 #t
 /C5
