@@ -94,19 +94,6 @@
           (string-append "; " (substring (cadr y) 1 (string-length (cadr y)))))
     y)))
 
- ; Upper case at start of comment
- (set! x
-  (map-rec y x
-   (if (and (car? comment-symbol y)
-            (length? 3 (cadr y))
-            (string-prefix? "; " (cadr y))
-            (char-lower-case? (string-ref (cadr y) 2)))
-    (list comment-symbol
-          (string-append "; "
-                         (make-string 1 (char-upcase (string-ref (cadr y) 2)))
-                         (substring (cadr y) 3 (string-length (cadr y)))))
-    y)))
-
  ; Sort cases
  (set! x
        (map-rec y x
