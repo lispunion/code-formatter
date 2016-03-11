@@ -26,6 +26,8 @@
     (let loop ()
      (whitespace)
      (cond
+      ((eof-object? (peek-char))
+       (error "unterminated list"))
       ((peek? ")")
        (read-char)
        '())
