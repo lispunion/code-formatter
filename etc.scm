@@ -142,6 +142,11 @@
        ...)
       (append xs (loop ys))))))))
 
+(define (cadr? x y)
+ (and (pair? y)
+      (pair? (cdr y))
+      (eqv? x (cadr y))))
+
 (define (car? x y)
  (and (pair? y)
       (eqv? x (car y))))

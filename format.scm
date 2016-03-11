@@ -181,7 +181,8 @@
  (set! x
        (map-rec y x
         (transform zs y
-         (values (if (car? 'define-syntax (car zs))
+         (values (if (and (car? 'define-syntax (car zs))
+                          (not (cadr? blank-symbol zs)))
                   (list (car zs) blank-symbol)
                   (list (car zs)))
                  (cdr zs)))))
@@ -190,7 +191,8 @@
  (set! x
        (map-rec y x
         (transform zs y
-         (values (if (defun? (car zs))
+         (values (if (and (defun? (car zs))
+                          (not (cadr? blank-symbol zs)))
                   (list (car zs) blank-symbol)
                   (list (car zs)))
                  (cdr zs)))))
@@ -435,7 +437,11 @@
    (apply max (map string-length (string-split s "\n")))))
 
  (define (width x)
-  (max-line-width (with-output-to-string (curry block x 0))))
+  (if (hash-table-exists? widths x)
+   (hash-table-ref widths x)
+   (let ((w (max-line-width (with-output-to-string (curry block x 0)))))
+    (hash-table-set! widths x w)
+    w)))
 
  (for x xs
   (block x 0)
@@ -443,3 +449,4 @@
 
 (define blank-symbol (gensym))
 (define comment-symbol (gensym))
+(define widths (make-hash-table))

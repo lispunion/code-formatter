@@ -9,6 +9,7 @@
  (use posix)
  (use srfi-1)
  (use srfi-13)
+ (use srfi-69)
 
  ; Include macros first
  (include "etc.scm")
