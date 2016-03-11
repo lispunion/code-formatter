@@ -394,6 +394,8 @@
     (args (cdr x) col))))
 
  (define (clauses xs col)
+  (if (car? blank-symbol xs)
+   (set! xs (cdr xs)))
   (for clause xs
    (newline)
    (cond
