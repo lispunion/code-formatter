@@ -264,8 +264,13 @@
     (write x))
    ((car? comment-symbol x)
     (display (cadr x)))
-   ((abbrev-prefix x)
+   ((and (abbrev-prefix x)
+         (list? (cadr x))
+         (every atom? (cadr x)))
     (inline x))
+   ((abbrev-prefix x)
+    (display (abbrev-prefix x))
+    (block (cadr x) (+ col (string-length (abbrev-prefix x)))))
 
    ; 0 special args
    ((memq (car x) '(begin collect))
@@ -326,14 +331,16 @@
     (args (cddddr x) (add1 col)))
 
    ; Let
-   ((and (memq (car x) '(let let* letrec letrec*))
+   ((and (length? 3 x)
+         (memq (car x) '(let let* letrec letrec*))
          (pair? (cadr x)))
     (display "(")
     (write (car x))
     (display " (")
     (bindings (cadr x) (+ col 1 (width (car x)) 2))
     (args (cddr x) (add1 col)))
-   ((memq (car x) '(let))
+   ((and (length? 3 x)
+         (memq (car x) '(let)))
     (display "(")
     (write (car x))
     (display " ")
