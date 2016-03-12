@@ -168,7 +168,7 @@
   (display " " port)))
 
 (define (length? n x)
- (if (pair? x)
+ (if (list? x)
   (<= n (length x))
   (<= n (string-length x))))
 

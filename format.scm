@@ -291,7 +291,9 @@
 
    ; 1 special arg
    ((and (length? 2 x)
-         (memq (car x) '(case syntax-rules)))
+         (memq (car x) '(case match syntax-rules)))
+    (if (car? 'match x)
+     (debug x))
     (display "(")
     (write (car x))
     (display " ")
@@ -403,6 +405,12 @@
     ((car? comment-symbol clause)
      (indent col)
      (display (cadr clause)))
+    ((atom? clause)
+     (indent col)
+     (write clause))
+    ((improper-list? clause)
+     (indent col)
+     (write clause))
     (else
      (indent col)
      (display "(")

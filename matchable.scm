@@ -58,13 +58,19 @@
     (match-syntax-error "missing match expression"))
    ((match atom)
     (match-syntax-error "no match clauses"))
-   ((match (app ...) (pat . body) ...)
+   ((match (app ...)
+     (pat . body)
+     ...)
     (let ((v (app ...)))
      (match-next v ((app ...) (set! (app ...))) (pat . body) ...)))
-   ((match #(vec ...) (pat . body) ...)
+   ((match #(vec ...)
+     (pat . body)
+     ...)
     (let ((v #(vec ...)))
      (match-next v (v (set! v)) (pat . body) ...)))
-   ((match atom (pat . body) ...)
+   ((match atom
+     (pat . body)
+     ...)
     (let ((v atom))
      (match-next v (atom (set! atom)) (pat . body) ...)))))
 
@@ -673,13 +679,17 @@
   (syntax-rules ()
    ((_ clause ...)
     (lambda (expr)
-     (match expr clause ...)))))
+     (match expr
+      clause
+      ...)))))
 
  (define-syntax match-lambda*
   (syntax-rules ()
    ((_ clause ...)
     (lambda expr
-     (match expr clause ...)))))
+     (match expr
+      clause
+      ...)))))
 
  (define-syntax match-let
   (syntax-rules ()
@@ -693,7 +703,9 @@
    ((_ () . body)
     (let () . body))
    ((_ ((pat expr) . rest) . body)
-    (match expr (pat (match-let* rest . body))))))
+    (match expr
+     (pat
+      (match-let* rest . body))))))
 
  (define-syntax match-let/helper
   (syntax-rules ()
