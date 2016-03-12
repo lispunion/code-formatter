@@ -292,8 +292,6 @@
    ; 1 special arg
    ((and (length? 2 x)
          (memq (car x) '(case match syntax-rules)))
-    (if (car? 'match x)
-     (debug x))
     (display "(")
     (write (car x))
     (display " ")
