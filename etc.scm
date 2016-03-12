@@ -39,25 +39,6 @@
   ((_ x delta)
    (set! x (- x delta)))))
 
-(define-syntax do-times
- (syntax-rules ()
-  ((_ i n body ...)
-   (let ((n n))
-    (let loop ((i 0))
-     (when (< i n)
-      body
-      ...
-      (loop (add1 i))))))))
-
-(define-syntax do-while
- (syntax-rules ()
-  ((_ test body ...)
-   (let loop ()
-    (when test
-     body
-     ...
-     (loop))))))
-
 (define-syntax filt
  (syntax-rules ()
   ((_ x xs body ...)

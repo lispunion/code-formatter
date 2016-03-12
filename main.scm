@@ -1,5 +1,10 @@
+(include "loops")
+(include "matchable")
+
 (module main ()
  (import chicken)
+ (import loops)
+ (import matchable)
  (import scheme)
 
  (use data-structures)
@@ -54,8 +59,8 @@
  (for file files
   (define xs (with-input-from-file file read/comments))
   (set! xs (tidy xs))
-  (rename-file file (pathname-replace-directory file "backup"))
   (define s (with-output-to-string (curry write/comments xs)))
+  (rename-file file (pathname-replace-directory file "backup"))
   (with-output-to-file file
                        (lambda ()
                         (display s))
