@@ -55,4 +55,8 @@
   (define xs (with-input-from-file file read/comments))
   (set! xs (tidy xs))
   (rename-file file (pathname-replace-directory file "backup"))
-  (with-output-to-file file (curry write/comments xs) binary:)))
+  (define s (with-output-to-string (curry write/comments xs)))
+  (with-output-to-file file
+                       (lambda ()
+                        (display s))
+                       binary:)))
