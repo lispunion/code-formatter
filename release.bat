@@ -1,4 +1,4 @@
-set version=1
+set version=2
 
 call build.bat
 if errorlevel 1 goto :eof
