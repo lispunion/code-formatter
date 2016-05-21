@@ -101,7 +101,7 @@
    (lambda (form inject compare?)
     (let ((xpr (cadr form))
           (xprs (cddr form)))
-     `(call-with-current-continuation (lambda ((unquote (inject (quote exit))))
+     `(call-with-current-continuation (lambda (,(inject 'exit))
                                        (let loop ()
                                         ,xpr
                                         ,@xprs
