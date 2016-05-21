@@ -383,7 +383,7 @@
     (inc! col)
     (inline (car x))
     (display " ")
-    (write (cadr x))
+    (inline (cadr x))
     (args (cddr x) col))
 
    ; Args unaligned
