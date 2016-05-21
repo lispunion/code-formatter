@@ -155,6 +155,18 @@
                   (list (car zs)))
                  (cdr zs)))))
 
+ ; Blank line before include
+ (set! x
+       (map-rec y x
+        (transform zs y
+         (values (if (and (not (car? 'include (car zs)))
+                          (not (car? comment-symbol (car zs)))
+                          (pair? (cdr zs))
+                          (car? 'include (cadr zs)))
+                  (list (car zs) blank-symbol)
+                  (list (car zs)))
+                 (cdr zs)))))
+
  ; Blank line after include
  (set! x
        (map-rec y x
