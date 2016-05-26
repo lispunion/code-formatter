@@ -961,6 +961,7 @@ zip
 #t
 /C5
 and
+assert
 begin
 case
 cond
