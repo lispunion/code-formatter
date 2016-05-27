@@ -1,5 +1,4 @@
 *.zip
-backup/
 
 # Object files
 *.o

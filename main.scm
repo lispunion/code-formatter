@@ -24,6 +24,7 @@
 
  ; Options
  (define end-options #f)
+ (define inplace #f)
  (define files
          (filt s (cdr (argv))
           (or (not (string-prefix? "-" s))
@@ -35,8 +36,12 @@
                  (print "Usage: scheme-format [options] files")
                  (print)
                  (print "-h  Show help")
+                 (print "-i  Inplace edit")
                  (print "-v  Show version")
                  (exit 0))
+                ((or (string-prefix? "--i" s)
+                     (string-prefix? "-i" s))
+                 (set! inplace #t))
                 ((or (string-prefix? "--v" s)
                      (string-prefix? "-V" s)
                      (string-prefix? "-v" s))
@@ -49,19 +54,14 @@
                  (exit 1)))
                #f))))
 
- ; Backup
- (unless (directory-exists? "backup")
-  (create-directory "backup"))
- (for file files
-  (delete-file* (pathname-replace-directory file "backup")))
-
  ; Format
  (for file files
   (define xs (with-input-from-file file read/comments))
   (set! xs (tidy xs))
   (define s (with-output-to-string (curry write/comments xs)))
-  (rename-file file (pathname-replace-directory file "backup"))
-  (with-output-to-file file
-                       (lambda ()
-                        (display s))
-                       binary:)))
+  (if inplace
+   (with-output-to-file file
+                        (lambda ()
+                         (display s))
+                        binary:)
+   (display s))))
