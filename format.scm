@@ -133,16 +133,6 @@
          (list (car y) (cadr y) (list 'quote (sort (cadr (caddr y)) value<)))
          y)))
 
- ; Sort records
- (set! x
-       (map-rec y x
-        (if (list? y)
-         (concatenate (for zs (frag (curry car? 'define-record-type) y)
-                       (if (car? 'define-record-type (car zs))
-                        (sort zs value<)
-                        zs)))
-         y)))
-
  ; Blank line after import
  (set! x
        (map-rec y x
@@ -214,6 +204,14 @@
        (map-rec y x
         (transform zs y
          (values (if (and (car? 'define-record-type (car zs))
+                          (not (cadr? blank-symbol zs)))
+                  (list (car zs) blank-symbol)
+                  (list (car zs)))
+                 (cdr zs)))))
+ (set! x
+       (map-rec y x
+        (transform zs y
+         (values (if (and (car? 'define-record-printer (car zs))
                           (not (cadr? blank-symbol zs)))
                   (list (car zs) blank-symbol)
                   (list (car zs)))
@@ -329,9 +327,13 @@
     (display " ")
     (block (cadr x) (+ col 1 (width (car x)) 1))
     (clauses (cddr x) (add1 col)))
-   ((and (length? 2 x)
-         (or (defun? x)
-             (memq (car x) '(define-record-type define-syntax lambda receive))))
+   ((and
+     (length? 2 x)
+     (or
+      (defun? x)
+      (memq
+       (car x)
+       '(define-record-printer define-record-type define-syntax lambda receive))))
     (display "(")
     (write (car x))
     (display " ")

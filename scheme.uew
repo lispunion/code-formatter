@@ -966,6 +966,7 @@ begin
 case
 cond
 define
+define-record-printer
 define-record-type
 define-syntax
 delay
