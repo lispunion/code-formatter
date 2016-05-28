@@ -348,8 +348,10 @@
     (args (cddr x) (add1 col)))
 
    ; 2 special args
-   ((and (length? 3 x)
-         (memq (car x) '(any-rec? do-times filt for map-rec module transform)))
+   ((and
+     (length? 3 x)
+     (memq (car x)
+           '(any-rec? do-list do-times filt for map-rec module transform)))
     (display "(")
     (write (car x))
     (display " ")

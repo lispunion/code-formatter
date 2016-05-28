@@ -114,9 +114,8 @@
                              "executes body xpr . xprs until exit is called")
                  (do-times "loops a fixed number of times" (do-times i upto xpr . xprs)
                   "execute xpr . xprs for i in [0 upto[")
-                 (do-list "loop along a list"
-                          (do-list i lst xpr . xprs)
-                          "execute xpr . xprs for i in lst")
+                 (do-list "loop along a list" (do-list i lst xpr . xprs)
+                  "execute xpr . xprs for i in lst")
                  (do-for
                   "for-loop"
                   (do-for var (start stop step) xpr . xprs)
