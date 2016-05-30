@@ -141,6 +141,11 @@
       (length? 2 x)
       (pair? (cadr x))))
 
+(define (defvar? x)
+ (and (car? 'define x)
+      (length? 2 x)
+      (atom? (cadr x))))
+
 (define (frag p xs)
  (cond
   ((atom? xs)
