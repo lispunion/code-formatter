@@ -969,11 +969,19 @@ define
 define-record-printer
 define-record-type
 define-syntax
+defstruct
 delay
 do
+do-for
+do-forever
+do-list
+do-times
+do-until
+do-while
 else
 if
 import
+import-for-syntax
 include
 lambda
 let
@@ -982,6 +990,7 @@ let-syntax
 letrec
 letrec*
 letrec-syntax
+match
 module
 or
 quasiquote

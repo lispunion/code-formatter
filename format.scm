@@ -211,7 +211,25 @@
  (set! x
        (map-rec y x
         (transform zs y
+         (values (if (and (not (car? 'define-record-printer (car zs)))
+                          (not (car? comment-symbol (car zs)))
+                          (pair? (cdr zs))
+                          (car? 'define-record-printer (cadr zs)))
+                  (list (car zs) blank-symbol)
+                  (list (car zs)))
+                 (cdr zs)))))
+ (set! x
+       (map-rec y x
+        (transform zs y
          (values (if (and (car? 'define-record-printer (car zs))
+                          (not (cadr? blank-symbol zs)))
+                  (list (car zs) blank-symbol)
+                  (list (car zs)))
+                 (cdr zs)))))
+ (set! x
+       (map-rec y x
+        (transform zs y
+         (values (if (and (car? 'defstruct (car zs))
                           (not (cadr? blank-symbol zs)))
                   (list (car zs) blank-symbol)
                   (list (car zs)))
@@ -327,13 +345,15 @@
     (display " ")
     (block (cadr x) (+ col 1 (width (car x)) 1))
     (clauses (cddr x) (add1 col)))
-   ((and
-     (length? 2 x)
-     (or
-      (defun? x)
-      (memq
-       (car x)
-       '(define-record-printer define-record-type define-syntax lambda receive))))
+   ((and (length? 2 x)
+         (or (defun? x)
+             (memq (car x)
+                   (quote 
+                          (define-record-printer define-record-type
+                           define-syntax
+                           defstruct
+                           lambda
+                           receive)))))
     (display "(")
     (write (car x))
     (display " ")
