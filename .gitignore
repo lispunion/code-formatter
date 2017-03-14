@@ -32,3 +32,10 @@
 
 # Debug files
 *.dSYM/
+
+# Temp/Scratch Files
+*.swp
+tags
+
+# Executable
+scheme-format
