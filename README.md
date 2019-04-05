@@ -1,3 +1,7 @@
+This version is preserved for historical interest only. Future development is taking place at:
+
+https://github.com/lispunion/code-formatter
+
 # scheme-format
 Format Scheme source code
 
