@@ -2,19 +2,18 @@
 (include "matchable")
 
 (module main ()
- (import chicken)
+ (import scheme)
+ (import srfi-1)
+ (import srfi-13)
+ (import srfi-69)
+ (import chicken.base)
+ (import chicken.io)
+ (import chicken.port)
+ (import chicken.process-context)
+ (import chicken.sort)
+ (import chicken.string)
  (import loops)
  (import matchable)
- (import scheme)
-
- (use data-structures)
- (use extras)
- (use files)
- (use ports)
- (use posix)
- (use srfi-1)
- (use srfi-13)
- (use srfi-69)
 
  ; Include macros first
  (include "etc.scm")
@@ -63,5 +62,5 @@
    (with-output-to-file file
                         (lambda ()
                          (display s))
-                        binary:)
+                        #:binary)
    (display s))))

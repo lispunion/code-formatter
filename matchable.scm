@@ -39,7 +39,7 @@
 ;; 2006/12/24 - bugfixes
 ;; 2006/12/01 - non-linear patterns, shared variables in OR, get!/set!
 (module matchable *
- (import scheme chicken)
+ (import scheme)
 
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  ;; force compile-time syntax errors with useful messages
@@ -850,8 +850,9 @@
  ;; Why not just require the "?" to begin with?!
  (cond-expand
   (chicken (define-syntax syntax-symbol-append-?
-            (lambda (x r c)
-             (string->symbol (string-append (symbol->string (cadr x)) "?")))))
+            (ir-macro-transformer
+             (lambda (x r c)
+              (string->symbol (string-append (symbol->string (cadr x)) "?"))))))
   (syntax-case
    (define-syntax (syntax-symbol-append-? stx)
     (syntax-case

@@ -34,7 +34,9 @@
 ; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ;
 (module loops *
- (import scheme (only chicken unless case-lambda print))
+ (import scheme)
+ (import srfi-16)
+ (import chicken.base)
 
  (define-syntax do-for
   (syntax-rules ()
