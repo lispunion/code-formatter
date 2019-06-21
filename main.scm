@@ -1,20 +1,28 @@
-(include "loops")
-(include "matchable")
-
 (module main ()
- (import chicken)
- (import loops)
- (import matchable)
+;  (import chicken)
+;  (load-relative "loops.scm")
+;  (use loops)
+;  (use format)
  (import scheme)
-
- (use data-structures)
- (use extras)
- (use files)
- (use ports)
- (use posix)
- (use srfi-1)
- (use srfi-13)
- (use srfi-69)
+ (import chicken.base)
+ (import chicken.file) ; not a thing anymore
+ (import chicken.io)
+ (import chicken.load)
+ (import chicken.port)
+ (import chicken.process-context)
+ (import chicken.string)
+ (import chicken.sort)
+ (import callable-data-structures)
+;  (use extras) ; not a thing anymore
+;               ; not sure what was being used in this
+ (import srfi-1)
+ (import srfi-13)
+ (import srfi-69)
+ (import simple-loops)
+ 
+ (load-relative "format.scm")
+ (load-relative "etc.scm")
+ (load-relative "matchable.scm")
 
  ; Include macros first
  (include "etc.scm")

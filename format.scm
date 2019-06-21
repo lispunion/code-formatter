@@ -80,10 +80,10 @@
    (whitespace)))
 
  (collect
-  (define x (read*))
-  (if (eof-object? x)
-   #f
-   (list x))))
+  (let ((x (read*)))
+    (if (eof-object? x)
+      #f
+      (list x)))))
 
 (define (tidy x)
  ; Space at start of comment
