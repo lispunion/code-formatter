@@ -1,3 +1,3 @@
 #!/bin/bash
 
-csc main.scm -o scheme-format
+csc -static main.scm -o scheme-format
