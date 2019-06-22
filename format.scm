@@ -198,16 +198,7 @@
                     (list (car zs)))
                    (cdr zs)))))
 
-   ; Blank line before comment
-   (set! x
-         (map-rec y x
-          (transform zs y
-           (values (if (and (not (car? comment-symbol (car zs)))
-                            (pair? (cdr zs))
-                            (car? comment-symbol (cadr zs)))
-                    (list (car zs) blank-symbol)
-                    (list (car zs)))
-                   (cdr zs)))))
+   ; NOTE: removed code that was adding blank lines before comments
 
    ; Blank line after macro
    (set! x
