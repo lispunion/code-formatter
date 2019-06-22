@@ -1,3 +1,37 @@
+(module etc
+        (any-rec?
+          cadr?
+          car?
+          collect
+          curry
+          debug
+          dec!
+          defun?
+          defvar?
+          filt
+          for
+          for*
+          frag
+          improper-list?
+          inc!
+          indent
+          length?
+          list<
+          map-rec
+          symbol<
+          trace
+          transform
+          typeof
+          value<
+          
+          )
+(import scheme)
+(import chicken.base)
+(import chicken.string)
+(import simple-loops)
+(import srfi-1)
+
+
 (define-syntax any-rec?
  (syntax-rules ()
   ((_ x xs body ...)
@@ -228,9 +262,11 @@
    ((pair? x)
     (list< x y))
    ((string? x)
-    (string< x y))
+    (string<? x y))
    ((symbol? x)
     (symbol< x y)))
   (symbol< (typeof x) (typeof y))))
 
 (define trace-level 0)
+
+)
