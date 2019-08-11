@@ -234,3 +234,13 @@
   (symbol< (typeof x) (typeof y))))
 
 (define trace-level 0)
+
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+
+(define (add-indent-size . items)
+  (let ((indent-size 1))
+   (accumulate + indent-size items)))

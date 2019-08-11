@@ -312,7 +312,7 @@
      (display "(")
      (inline (car x))
      (display " ")
-     (block (cadr x) (+ col 1 (width (car x)) 1))
+     (block (cadr x) (add-indent-size col (width (car x)) 1))
      (display ")")))
    (when (pair? (cdr xs))
     (newline)
@@ -340,11 +340,11 @@
    ((memq (car x) '(begin collect))
     (display "(")
     (write (car x))
-    (args (cdr x) (add1 col)))
+    (args (cdr x) (add-indent-size col)))
    ((memq (car x) '(cond))
     (display "(")
     (write (car x))
-    (clauses (cdr x) (add1 col)))
+    (clauses (cdr x) (add-indent-size col)))
 
    ; 1 special arg
    ((and (length? 2 x)
@@ -352,8 +352,8 @@
     (display "(")
     (inline (car x))
     (display " ")
-    (block (cadr x) (+ col 1 (width (car x)) 1))
-    (clauses (cddr x) (add1 col)))
+    (block (cadr x) (add-indent-size col (width (car x)) 1))
+    (clauses (cddr x) (add-indent-size col)))
    ((and (length? 2 x)
          (or (defun? x)
              (memq (car x)
@@ -367,14 +367,14 @@
     (write (car x))
     (display " ")
     (inline (cadr x))
-    (args (cddr x) (add1 col)))
+    (args (cddr x) (add-indent-size col)))
    ((and (length? 2 x)
          (memq (car x) '(do-until do-while if unless when)))
     (display "(")
     (write (car x))
     (display " ")
-    (block (cadr x) (+ col 1 (width (car x)) 1))
-    (args (cddr x) (add1 col)))
+    (block (cadr x) (add-indent-size col (width (car x)) 1))
+    (args (cddr x) (add-indent-size col)))
 
    ; 2 special args
    ((and
@@ -387,7 +387,7 @@
     (write (cadr x))
     (display " ")
     (inline (caddr x))
-    (args (cdddr x) (add1 col)))
+    (args (cdddr x) (add-indent-size col)))
 
    ; 3 special args
    ((and (length? 4 x)
@@ -400,7 +400,7 @@
     (write (caddr x))
     (display " ")
     (inline (cadddr x))
-    (args (cddddr x) (add1 col)))
+    (args (cddddr x) (add-indent-size col)))
 
    ; Let
    ((and (length? 3 x)
@@ -409,8 +409,8 @@
     (display "(")
     (write (car x))
     (display " (")
-    (bindings (cadr x) (+ col 1 (width (car x)) 2))
-    (args (cddr x) (add1 col)))
+    (bindings (cadr x) (add-indent-size col (width (car x)) 2))
+    (args (cddr x) (add-indent-size col)))
    ((and (length? 3 x)
          (memq (car x) '(let)))
     (display "(")
@@ -418,20 +418,20 @@
     (display " ")
     (write (cadr x))
     (display " (")
-    (bindings (caddr x) (+ col 1 (width (car x)) 1 (width (cadr x)) 2))
-    (args (cdddr x) (add1 col)))
+    (bindings (caddr x) (add-indent-size col (width (car x)) 1 (width (cadr x)) 2))
+    (args (cdddr x) (add-indent-size col)))
 
    ; Args inline
    ((and (not (memq (car x) '(and or)))
          (every inline? x)
-         (< (+ col 1 (length x) (apply + (map width x))) 80))
+         (< (add-indent-size col (length x) (apply + (map width x))) 80))
     (inline x))
 
    ; Args aligned with first
    ((and (length? 2 x)
          (inline? (car x))
          (every (lambda (y)
-                 (< (+ col 1 (width (car x)) 1 (width y)) 80))
+                 (< (add-indent-size col (width (car x)) 1 (width y)) 80))
                 (cdr x))
          (cdr x))
     (display "(")
@@ -477,8 +477,8 @@
     (else
      (indent col)
      (display "(")
-     (block (car clause) (add1 col))
-     (args (cdr clause) (add1 col)))))
+     (block (car clause) (add-indent-size col))
+     (args (cdr clause) (add-indent-size col)))))
   (display ")"))
 
  (define (inline x)
