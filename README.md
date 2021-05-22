@@ -35,7 +35,7 @@ A straight port of [code-formatter](https://github.com/lispunion/code-formatter)
 ## Building From Source
 Requires Chicken Scheme 5.x
 
-Just run the `build.sh` file and add the resulting `scheme-format` file to your `$PATH`
+Just run the `install-deps.sh` and `build.sh` files and add the resulting `scheme-format` file to your `$PATH`
 
 If you edit the `etc.scm` or `format.scm` files you'll want to run
 
