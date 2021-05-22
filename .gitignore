@@ -43,3 +43,6 @@ scheme-format
 # misc
 main
 *.link
+
+# Chicken Scheme imports
+*.import.scm
