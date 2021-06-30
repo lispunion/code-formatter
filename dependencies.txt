@@ -1,2 +1,5 @@
 (simple-loops "1.0.1")
 (callable-data-structures "1.0.3")
+(srfi-1)
+(srfi-13)
+(matchable)
