@@ -15,10 +15,10 @@ $ scheme-format -i path/to/my/scheme/file.scm
 
 It is recommended that you integrate this with your favorite editor such that it can replace the current version of your code with the formatted one produced by this.
 
-See [the GitHub Issues](https://github.com/masukomi/code-formatter/issues) for future enhancements.
+See [the GitHub Issues](https://github.com/lispunion/code-formatter/issues) for future enhancements.
 
 ### Note
-This formatter is ok, but needs some love. Check out [the GitHub Issues](https://github.com/masukomi/scheme-format/issues) for some more details. The long term goal is to bring it more in line with the [scheme-style](http://community.schemewiki.org/cgi-bin/scheme.cgi?scheme-style) style guide. 
+This formatter is ok, but needs some love. Check out [the GitHub Issues](https://github.com/lispunion/code-formatter/issues) for some more details. The long term goal is to bring it more in line with the [scheme-style](http://community.schemewiki.org/cgi-bin/scheme.cgi?scheme-style) style guide. 
 
 We can, of course, add in some custom formatting options, but the default should be close to that. Any help you can provide to move us forward would be greatly appreciated. 
 
