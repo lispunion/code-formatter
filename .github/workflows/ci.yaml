@@ -14,8 +14,8 @@ jobs:
           - ubuntu-latest
           - macos-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: aminya/setup-scheme@master
+      - uses: actions/checkout@v3
+      - uses: guenchi/setup-scheme@master
         with:
           implementation: chicken
 
