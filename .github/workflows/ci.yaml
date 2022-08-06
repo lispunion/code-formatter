@@ -1,0 +1,36 @@
+name: CI
+
+on: 
+   push:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: guenchi/setup-scheme@master
+        with:
+          implementation: chicken
+
+      - name: Build
+        run: |
+          chicken-install -s -from-list dependencies.txt
+          csc -s etc.scm -j etc
+          csc -s format.scm -j format
+          csc -static main.scm -o scheme-format
+
+      - name: Zip Binary File
+        run: |
+          7z a -tzip scheme-format-${{ runner.os }}.zip scheme-format*
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: scheme-format-${{ runner.os }}.zip
